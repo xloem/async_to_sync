@@ -5,11 +5,9 @@ import threading
 _loop = None
 def get_event_loop():
     global _loop, _thread
-    if _loop is None:
-        _loop = asyncio.get_event_loop()
-        _thread = threading.Thread(target=_loop.run_forever)
-        _thread.start()
-    elif _thread is None:
+    if _thread is None:
+        if _loop is None:
+            _loop = asyncio.get_event_loop()
         _thread = threading.Thread(target=_loop.run_forever)
         _thread.start()
     return _loop
@@ -19,6 +17,7 @@ def stop():
     global _loop, _thread
     if _loop is not None:
         _loop.call_soon_threadsafe(_loop.stop)
+    if _thread is not None:
         _thread.join()
         _thread = None
 

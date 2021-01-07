@@ -18,6 +18,6 @@ Usage
 
     import async_to_sync as sync
 
-    sync_object = sync.async_methods(async_class())
+    sync_object = sync.methods(async_class())
     sync_function = sync.function(async_class().method)
     sync_function = sync.coroutine(async_class().method())

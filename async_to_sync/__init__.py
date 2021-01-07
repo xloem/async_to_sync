@@ -35,7 +35,7 @@ def function(function, loop = None):
         return coroutine(async_coroutine, loop)
     return call
 
-class async_methods:
+class methods:
     def __init__(self, object, loop = None):
         self.__object = object
         self.__loop = loop

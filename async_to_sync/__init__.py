@@ -3,6 +3,7 @@ import atexit
 import threading
 
 _loop = None
+_thread = None
 def get_event_loop():
     global _loop, _thread
     if _thread is None:

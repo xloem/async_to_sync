@@ -17,6 +17,7 @@ def get_event_loop():
 def start():
     get_event_loop()
 
+@atexit.register
 def stop():
     global _loop, _thread
     if _loop is not None:

@@ -5,7 +5,7 @@ import threading
 _loop = None
 _thread = None
 
-def get_event_loop():
+def get_default_event_loop():
     global _loop, _thread
     if _thread is None:
         if _loop is None:
@@ -14,8 +14,12 @@ def get_event_loop():
         _thread.start()
     return _loop
 
+def set_default_event_loop(loop)
+    stop()
+    _loop = loop
+
 def start():
-    get_event_loop()
+    get_default_event_loop()
 
 @atexit.register
 def stop():

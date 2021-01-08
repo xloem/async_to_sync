@@ -10,11 +10,14 @@ def get_default_event_loop():
     if _thread is None:
         if _loop is None:
             _loop = asyncio.get_event_loop()
-        _thread = threading.Thread(target=_loop.run_forever)
-        _thread.start()
+        if not _loop.is_running():
+            _thread = threading.Thread(
+                target=_loop.run_forever,
+                daemon=True)
+            _thread.start()
     return _loop
 
-def set_default_event_loop(loop)
+def set_default_event_loop(loop):
     stop()
     _loop = loop
 
@@ -32,7 +35,7 @@ def stop():
 
 def coroutine(coroutine, loop = None):
     if loop is None:
-        loop = get_event_loop()
+        loop = get_default_event_loop()
     future = asyncio.run_coroutine_threadsafe(coroutine, loop)
     result = future.result()
     return result

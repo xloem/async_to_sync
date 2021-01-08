@@ -20,24 +20,24 @@ Usage
 
     # an async object method to demonstrate use
     class async_class:
-        async def method(self):
-            return True
+        async def sum(self, a, b):
+            return a + b
     async_object = async_class()
 
     # wrap all async methods of an object
     sync_object = sync.methods(async_object)
 
-    assert sync_object.method() is True
+    assert sync_object.sum(1,2) == 3
 
     # wrap a single async callable
-    sync_function = sync.function(async_object.method)
+    sync_function = sync.function(async_object.sum)
 
-    assert sync_function() is True
+    assert sync_function(4,5) == 9
 
     # wait for a coroutine
-    sync_result = sync.coroutine(async_object.method())
+    sync_result = sync.coroutine(async_object.sum(6,7))
 
-    assert sync_result is True
+    assert sync_result == 13
 
     # manually stop default event loop
     sync.stop()

@@ -4,6 +4,7 @@ import threading
 
 _loop = None
 _thread = None
+
 def get_event_loop():
     global _loop, _thread
     if _thread is None:
@@ -12,8 +13,10 @@ def get_event_loop():
         _thread = threading.Thread(target=_loop.run_forever)
         _thread.start()
     return _loop
+
 def start():
     get_event_loop()
+
 def stop():
     global _loop, _thread
     if _loop is not None:

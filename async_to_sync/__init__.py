@@ -22,6 +22,7 @@ def get_default_event_loop():
     return _loop
 
 def set_default_event_loop(loop):
+    global _loop
     stop()
     _loop = loop
 

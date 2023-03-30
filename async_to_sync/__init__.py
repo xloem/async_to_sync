@@ -9,7 +9,11 @@ def get_default_event_loop():
     global _loop, _thread
     if _thread is None:
         if _loop is None:
-            _loop = asyncio.get_event_loop()
+            try:
+                _loop = asyncio.get_event_loop()
+            except RuntimeError:
+                _loop = asyncio.new_event_loop()
+                asyncio.set_event_loop(_loop)
         if not _loop.is_running():
             _thread = threading.Thread(
                 target=_loop.run_forever,
@@ -18,6 +22,7 @@ def get_default_event_loop():
     return _loop
 
 def set_default_event_loop(loop):
+    global _loop
     stop()
     _loop = loop
 
